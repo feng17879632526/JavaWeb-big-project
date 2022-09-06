@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <servlet>
+        <servlet-name>Servlet5</servlet-name>
+        <servlet-class>com.xxxx.Servlet5</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Servlet5</servlet-name>
+        <url-pattern>/s5</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Servlet6</servlet-name>
+        <servlet-class>com.xxxx.Servlet6</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Servlet6</servlet-name>
+        <url-pattern>/s6</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Servlet7</servlet-name>
+        <servlet-class>com.xxxx.Servlet7</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Servlet7</servlet-name>
+        <url-pattern>/s7</url-pattern>
+    </servlet-mapping>
+</web-app>

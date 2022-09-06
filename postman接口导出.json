@@ -1,0 +1,1457 @@
+{
+	"info": {
+		"_postman_id": "a6de5924-70e2-49cf-8cc1-5517f962d2a2",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "UserController",
+			"item": [
+				{
+					"name": "登录",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									" \r",
+									"// 把responseBody转为json字符串\r",
+									"var data = JSON.parse(responseBody);\r",
+									"// 设置环境变量token，供后面的接口引用，位置就是上一步获取的位置\r",
+									"pm.environment.set(\"token\", data.msg);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/login?username=i1&password=123456",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "i1"
+								},
+								{
+									"key": "password",
+									"value": "123456"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看token是否过期",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/user/check",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"check"
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "注册成为会员",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/user/becomevip?username=zxf1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"becomevip"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "zxf1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取用户信息",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/user/info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "注册",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"i1\",\r\n    \"password\":\"123456\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/regist",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"regist"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ShopCartController",
+			"item": [
+				{
+					"name": "购物车添加",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"1\",\r\n    \"userId\":\"43\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/shopcart/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shopcart",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "根据用户ID获取购物车",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/shopcart/list?userId=25",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shopcart",
+								"list"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "25"
+								}
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "购物车记录ID和数量更新购物车记录  /update/{cid}/{cnum}",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/shopcart/update/1/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shopcart",
+								"update",
+								"1",
+								"5"
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "根据根据cid获取购物车内容",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/shopcart/listbycids?cids=5,6,7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shopcart",
+								"listbycids"
+							],
+							"query": [
+								{
+									"key": "cids",
+									"value": "5,6,7"
+								}
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "根据cid删除购物车记录",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/shopcart/listbycids?cids=5,6,7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shopcart",
+								"listbycids"
+							],
+							"query": [
+								{
+									"key": "cids",
+									"value": "5,6,7"
+								}
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ProductController",
+			"item": [
+				{
+					"name": "商品基本信息查询接口",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/product/detail-info/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product",
+								"detail-info",
+								"3"
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "商品图片查询接口",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/product/imgs/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product",
+								"imgs",
+								"2"
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "商品参数信息查询接口",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/product/detail-params/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product",
+								"detail-params",
+								"3"
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "商品评论信息查询接口",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/product/detail-comments/1?pageNum=1&limit=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product",
+								"detail-comments",
+								"1"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "1",
+									"description": "当前页码"
+								},
+								{
+									"key": "limit",
+									"value": "5",
+									"description": "每页显示条数\n"
+								}
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "增加评论",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": \"1\",\r\n    \"commLevel\":\"1\",\r\n    \"commContent\":\"非常好\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/product/addcomment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product",
+								"addcomment"
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "根据类别查询商品接口/listbycid/{cid}",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/product/listbycid/2?pageNum=1&limit=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product",
+								"listbycid",
+								"2"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "1",
+									"description": "当前页码\n"
+								},
+								{
+									"key": "limit",
+									"value": "5",
+									"description": "每页显示条数"
+								}
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "根据类别查询商品品牌接口",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/product/listbrands/2?pageNum=1&limit=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product",
+								"listbrands",
+								"2"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "根据关键字查询商品接口",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/product/listbykeyword?pageNum=1&limit=5&keyword=雪糕",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product",
+								"listbykeyword"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "keyword",
+									"value": "雪糕"
+								}
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "根据关键字查询商品品牌接口",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/product/listbrands-keyword?keyword=雪糕",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product",
+								"listbrands-keyword"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "雪糕"
+								}
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OrderController",
+			"item": [
+				{
+					"name": "添加订单",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\":\"999\",\r\n    \"receiverName\":\"张三\",\r\n    \"receiverMobile\":\"17822632526\",\r\n    \"receiverAddress\":\"北京\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/order/add?cids=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order",
+								"add"
+							],
+							"query": [
+								{
+									"key": "cids",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询订单状态/status/{oid}",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/order/status/2edae7d9f94e42dd87841e3fb625976b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order",
+								"status",
+								"2edae7d9f94e42dd87841e3fb625976b"
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "订单查询接口",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/order/list?userId=1&pageNum=1&limit=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order",
+								"list"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "1"
+								},
+								{
+									"key": "pageNum",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "删除订单",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/order/delete?orderIds=1425960f815d4f8a98c9c634ba4b91ef",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "orderIds",
+									"value": "1425960f815d4f8a98c9c634ba4b91ef"
+								}
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "修改订单状态",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/order/delete?orderIds=1425960f815d4f8a98c9c634ba4b91ef",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "orderIds",
+									"value": "1425960f815d4f8a98c9c634ba4b91ef"
+								}
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "IndexController",
+			"item": [
+				{
+					"name": "首页轮播图接口",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/index/indeximg",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"index",
+								"indeximg"
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "商品分类查询接口",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/index/category-list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"index",
+								"category-list"
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "分类推荐接口",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/index/category-recommends",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"index",
+								"category-recommends"
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "新品推荐接口",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/index/category-recommends",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"index",
+								"category-recommends"
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ShopController",
+			"item": [
+				{
+					"name": "开店",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"shopName\":\"好名字\",\r\n    \"shopDescription\":\"Good\",\r\n    \"shopImg\":\"defaut.jpg\",\r\n    \"shopKeeperName\":\"zhangsan\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/shop/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shop",
+								"add"
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "根据店铺ID查询店铺商品",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/shop/list?shopID=13",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shop",
+								"list"
+							],
+							"query": [
+								{
+									"key": "shopID",
+									"value": "13"
+								}
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "查询所有店铺",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/shop/listshops",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shop",
+								"listshops"
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "根据用户ID查询店铺",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/shop/listshopsbyuserid?userId=13",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shop",
+								"listshopsbyuserid"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "13"
+								}
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "删除店铺",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/shop/delete?shopID=88",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shop",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "shopID",
+									"value": "88"
+								}
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "添加商品基本信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productName\":\"好名字99\",\r\n    \"categoryId\":\"1\",\r\n    \"rootCategoryId\":\"2\",\r\n    \"content\":\"Good\",\r\n    \"shopID\":\"1\",\r\n    \"skus\":[{\r\n        \"sellprice\":\"100\"\r\n    }],\r\n    \"imgs\":[{\"url\":\"img/99.jpg\"}]\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/shop/addproduct",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shop",
+								"addproduct"
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "更新商品基本信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"68907178\",\r\n    \"productName\":\"好名字\",\r\n    \"categoryId\":\"1\",\r\n    \"rootCategoryId\":\"2\",\r\n    \"content\":\"Good\",\r\n    \"shopID\":\"1\",\r\n    \"skus\":[{\"sellPrice\":\"100\"}],\r\n    \"imgs\":[{\"url\":\"img/98.jpg\"}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/shop/updateproduct",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shop",
+								"updateproduct"
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "添加商品参数信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"12\",\r\n    \"productPlace\":\"1\",\r\n    \"brand\":\"2\",\r\n    \"content\":\"Good\",\r\n    \"shopID\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/shop/addproductparam",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shop",
+								"addproductparam"
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "更新商品信息参数",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"paramId\":\"1640083814729\",\r\n    \"productId\":\"12\",\r\n    \"productPlace\":\"1\",\r\n    \"brand\":\"华为\",\r\n    \"content\":\"Good\",\r\n    \"shopID\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/shop/updateproductparam",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shop",
+								"updateproductparam"
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "删除商品",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/shop/deleteproduct?productId=105",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shop",
+								"deleteproduct"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "105"
+								}
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "用户变为店主",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/shop/updateToShopKeeper?ID=13",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shop",
+								"updateToShopKeeper"
+							],
+							"query": [
+								{
+									"key": "ID",
+									"value": "13"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UploadFileController",
+			"item": [
+				{
+					"name": "上传产品图片",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"user-agent": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/E:/分工.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/file/productimg?productId=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"file",
+								"productimg"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "2"
+								}
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "上传用户图片",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"user-agent": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/E:/分工.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/file/userimg?userId=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"file",
+								"userimg"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "2"
+								}
+							]
+						},
+						"description": "检查token是否过期"
+					},
+					"response": []
+				},
+				{
+					"name": "上传轮播图",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
